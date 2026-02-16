@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { CheckIcon } from "@heroicons/react/24/solid";
 
 export default function SignupForm() {
   const router = useRouter();
@@ -13,11 +14,13 @@ export default function SignupForm() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [checkBox,setCheckBox]=useState(false)
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
-
+    const role=checkBox?"admin":"user"
+    console.log(role,"=-==-=-");
     // Basic validation
     if (!name || !email || !password || !confirmPassword) {
       return setError("All fields are required");
@@ -28,12 +31,12 @@ export default function SignupForm() {
 
     try {
       setLoading(true);
-
+      
       const res = await fetch("http://localhost:5005/api/users/register", {
         method: "POST",
         credentials: "include", // important for cookies
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, email, password }),
+        body: JSON.stringify({ name, email, password, role }),
       });
 
       const data = await res.json();
@@ -82,6 +85,12 @@ export default function SignupForm() {
       <button type="submit" disabled={loading} className="w-full bg-green-600 text-white py-2 rounded hover:bg-green-700 transition">
         {loading ? "Signing up..." : "Sign Up"}
       </button>
+      {
+        <p onClick={() => setCheckBox(!checkBox)} className="flex flex-row mt-3 gap-2 ">
+          <CheckIcon className={`h-6 w-6 ${checkBox ? "text-green-600" : "text-black"} bg-amber-200 rounded-md`} />
+          sign up as admin
+        </p>
+      }
 
       {/* Link to login */}
       <p className="text-sm text-center mt-4">

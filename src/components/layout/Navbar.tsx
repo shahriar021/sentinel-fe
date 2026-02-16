@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { LightBulbIcon, MagnifyingGlassIcon, SunIcon, Bars3Icon, XMarkIcon } from "@heroicons/react/24/solid";
+import { LightBulbIcon, MagnifyingGlassIcon, SunIcon, Bars3Icon, XMarkIcon,AdjustmentsHorizontalIcon } from "@heroicons/react/24/solid";
 import { useState } from "react";
 import { navLinks } from "../lib/constants";
 
@@ -18,9 +18,9 @@ export default function Navbar() {
     <nav className="bg-background text-foreground p-4 sticky top-0 z-50 shadow-sm">
       <div className=" mx-auto flex items-center justify-between">
 
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-4 ml-20 z-20">
           <Link href="/">
-            <p className="text-2xl md:text-3xl font-bold bg-linear-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent">
+            <p className="text-2xl md:text-3xl font-bold bg-linear-to-r from-red-500 to-white bg-clip-text text-transparent">
               sentinel
             </p>
           </Link>

@@ -28,9 +28,9 @@ export default function LoginForm() {
       });
 
       const data = await res.json();
-
       if (!res.ok) throw new Error(data.message || "Login failed");
       localStorage.setItem("token", data.token);
+      localStorage.setItem("role", data.user.role);
       router.push("/dashboard"); // success
     } catch (err) {
       setError(err.message);

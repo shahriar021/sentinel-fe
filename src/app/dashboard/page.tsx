@@ -3,22 +3,27 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useGetAllResourcesQuery } from "@/src/redux/features/resources/resourcesApi";
 import { usePostBookingMutation } from "@/src/redux/features/booking/bookingApi";
+import Drawer from "@/src/components/layout/Drawer";
 
 export default function DashboardPage() {
   const router = useRouter();
   const [token, setToken] = useState<string | null>(null);
+  const [role, setRole] = useState<string | null>(null);
 
   const {data:getAllResources,isLoading,refetch}=useGetAllResourcesQuery()
   const [postBooking, { isLoading: isBooking }] = usePostBookingMutation();
 
   useEffect(() => {
     const storedToken = localStorage.getItem("token");
+    const storedRole = localStorage.getItem("role");
     if (!storedToken) {
       router.push("/auth/login");
     } else {
       setToken(storedToken);
+      setRole(storedRole);
     }
   }, [router]);
+  console.log(role,"dashboard");
 
   // --- NEW: POST API CALL FOR BOOKING ---
 const handleBooking = async (resourceId: number) => {
@@ -50,6 +55,7 @@ const handleBooking = async (resourceId: number) => {
 
  return (
    <div className="flex min-h-screen bg-background text-foreground p-8">
+    {/* <Drawer/> */}
      <main className="flex-1 max-w-5xl mx-auto">
        <header className="flex justify-between items-center mb-10">
          <div>
